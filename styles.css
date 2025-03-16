@@ -1,4 +1,4 @@
-/* General Styles */
+/* General Page Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -13,37 +13,81 @@ h1 {
     text-align: center;
 }
 
-/* Table */
+/* Table Container */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Table Styling */
 .table {
     background: white;
     border-radius: 5px;
     overflow: hidden;
-    table-layout: fixed; /* Ensures fixed column widths */
     width: 100%;
 }
 
 .table th, .table td {
     text-align: left;
     padding: 10px;
-    word-wrap: break-word;
-    white-space: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
 }
 
-.table th:nth-child(6), .table td:nth-child(6) {
-    width: 280px;
-    max-width: 280px;
-    overflow-wrap: break-word;
-}
-
-/* Styling for table headers */
 .table th {
     background: #007bff;
     color: white;
 }
 
-/* Buttons */
+/* Ensure the description column wraps properly */
+.table td:nth-child(7) {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 300px;
+}
+
+/* Ensure checkboxes and buttons display properly */
+.table td .btn {
+    display: inline-block !important;
+    margin-right: 5px;
+    white-space: nowrap;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 768px) {
+    .table th, .table td {
+        font-size: 14px;
+        max-width: 100px;
+    }
+    .table td:nth-child(7) {
+        max-width: 200px;
+    }
+    .btn-sm {
+        padding: 6px 8px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .table th, .table td {
+        font-size: 12px;
+        max-width: 90px;
+    }
+    .table td:nth-child(7) {
+        max-width: 180px;
+    }
+    .btn-sm {
+        font-size: 12px;
+        padding: 5px 6px;
+    }
+}
+
+/* Form and Button Styling */
 .btn {
     margin-bottom: 10px;
+    width: 100%;
 }
 
 textarea {
@@ -57,12 +101,7 @@ textarea {
     }
 }
 
-/* Make Table Scrollable on Small Screens */
-.table-responsive {
-    overflow-x: auto;
-}
-
-/* Hide non-print elements */
+/* Hide non-print elements when printing */
 @media print {
     .no-print {
         display: none !important;
