@@ -14,31 +14,31 @@
 
     <form id="workLogForm" class="mb-4">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <label for="client" class="form-label">Viðskiptavinur</label>
                 <input type="text" class="form-control" id="client" required>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <label for="date" class="form-label">Dagsetning</label>
                 <input type="date" class="form-control" id="date" required>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <label for="startTime" class="form-label">Upphafstími</label>
                 <input type="time" class="form-control" id="startTime" required>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <label for="endTime" class="form-label">Lokatími</label>
                 <input type="time" class="form-control" id="endTime" required>
             </div>
-            <div class="col-md-8">
+            <div class="col-12">
                 <label for="description" class="form-label">Lýsing</label>
                 <textarea class="form-control text-left" id="description" rows="2" required></textarea>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary mt-3">Bæta við færslu</button>
+        <button type="submit" class="btn btn-primary mt-3 w-100">Bæta við færslu</button>
     </form>
 
-    <div id="workLogTableContainer">
+    <div id="workLogTableContainer" class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -62,8 +62,9 @@
         </table>
     </div>
 
-    <button id="exportToExcel" class="btn btn-primary">Export to Excel</button>
-    <button id="clearTable" class="btn btn-danger">Hreinsa töflu</button>
+    <button id="exportToExcel" class="btn btn-primary w-100">Export to Excel</button>
+    <button id="clearTable" class="btn btn-danger w-100 mt-2">Hreinsa töflu</button>
+    <button id="pasteEntry" class="btn btn-secondary w-100 mt-2">Líma færslu</button> <!-- ✅ Corrected: Paste Entry button is now added -->
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
