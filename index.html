@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HVS Engineering - Vinnudagbók</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container mt-4">
+    <h1 class="text-left">Vinnudagbók</h1>
+
+    <form id="workLogForm" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="client" class="form-label">Viðskiptavinur</label>
+                <input type="text" class="form-control" id="client" required>
+            </div>
+            <div class="col-md-4">
+                <label for="date" class="form-label">Dagsetning</label>
+                <input type="date" class="form-control" id="date" required>
+            </div>
+            <div class="col-md-4">
+                <label for="startTime" class="form-label">Upphafstími</label>
+                <input type="time" class="form-control" id="startTime" required>
+            </div>
+            <div class="col-md-4">
+                <label for="endTime" class="form-label">Lokatími</label>
+                <input type="time" class="form-control" id="endTime" required>
+            </div>
+            <div class="col-md-8">
+                <label for="description" class="form-label">Lýsing</label>
+                <textarea class="form-control text-left" id="description" rows="2" required></textarea>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Bæta við færslu</button>
+    </form>
+
+    <div id="workLogTableContainer">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Viðskiptavinur</th>
+                    <th>Dagsetning</th>
+                    <th>Upphafstími</th>
+                    <th>Lokatími</th>
+                    <th>Unnir tímar</th>
+                    <th>Lýsing</th>
+                    <th class="no-print">Aðgerðir</th>
+                </tr>
+            </thead>
+            <tbody id="workLogTable"></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-end"><strong>Samtals unnir tímar:</strong></td>
+                    <td id="totalHoursWorked">00:00</td>
+                    <td colspan="2"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <button id="exportToExcel" class="btn btn-primary">Export to Excel</button>
+    <button id="exportToWord" class="btn btn-primary">Export to Word</button>
+    <button id="clearTable" class="btn btn-danger">Hreinsa töflu</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
