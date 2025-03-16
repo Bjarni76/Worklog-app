@@ -10,6 +10,7 @@ h1 {
     color: #007bff;
     font-size: 2rem;
     font-weight: bold;
+    text-align: center;
 }
 
 /* Table */
@@ -24,12 +25,12 @@ h1 {
 .table th, .table td {
     text-align: left;
     padding: 10px;
-    word-wrap: break-word; /* Ensures text wraps */
+    word-wrap: break-word;
     white-space: normal;
 }
 
 .table th:nth-child(6), .table td:nth-child(6) {
-    width: 280px; /* Adjust this value if needed */
+    width: 280px;
     max-width: 280px;
     overflow-wrap: break-word;
 }
@@ -42,48 +43,27 @@ h1 {
 
 /* Buttons */
 .btn {
-    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 textarea {
     resize: none;
 }
 
-/* Print-specific styles */
+/* Responsive Form Layout */
+@media (max-width: 768px) {
+    .row .col-12 {
+        margin-bottom: 15px;
+    }
+}
+
+/* Make Table Scrollable on Small Screens */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Hide non-print elements */
 @media print {
-    body * {
-        visibility: visible; /* Show everything */
-    }
-
-    #workLogTableContainer {
-        position: relative;
-        margin: 0 auto;
-    }
-
-    /* Ensure the table prints exactly as displayed */
-    .table {
-        page-break-inside: auto; /* Let the browser handle page breaks naturally */
-    }
-
-    .table thead {
-        display: table-header-group; /* Ensures headers repeat if necessary */
-    }
-
-    .table tbody {
-        display: table-row-group;
-    }
-
-    .table tr, .table td, .table th {
-        page-break-inside: avoid; /* Prevents splitting cells */
-    }
-
-    /* Ensure Total Hours appears exactly where it is in the WebView */
-    .total-hours-row {
-        font-weight: bold;
-        border-top: 2px solid #000;
-    }
-
-    /* Hide buttons and other non-print elements */
     .no-print {
         display: none !important;
     }
