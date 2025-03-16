@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const totalHoursWorkedCell = document.getElementById("totalHoursWorked");
     const clearTableButton = document.getElementById("clearTable");
     const exportExcelButton = document.getElementById("exportToExcel");
+    const pasteButton = document.getElementById("pasteEntry"); // ✅ Use existing button
 
     let workLogs = JSON.parse(localStorage.getItem("workLogs")) || [];
     let copiedEntry = null;
@@ -134,10 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
         saveTableButton.style.display = "none";
     });
 
-    // ✅ Add "Líma færslu" (Paste Entry) button
-    const pasteButton = document.createElement("button");
-    pasteButton.textContent = "Líma færslu";
-    pasteButton.classList.add("btn", "btn-secondary", "mt-2");
+    // ✅ Use the existing "Líma færslu" button from index.html
     pasteButton.addEventListener("click", function () {
         if (copiedEntry) {
             workLogs.push({ ...copiedEntry });
@@ -147,8 +145,6 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Engin færsla hefur verið afrituð!");
         }
     });
-
-    document.querySelector(".container").appendChild(pasteButton);
 
     // ✅ Fix Export to Excel
     exportExcelButton.addEventListener("click", function () {
