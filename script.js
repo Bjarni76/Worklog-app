@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const totalHoursWorkedCell = document.getElementById("totalHoursWorked");
     const clearTableButton = document.getElementById("clearTable");
     const exportExcelButton = document.getElementById("exportToExcel");
-    const exportWordButton = document.getElementById("exportToWord");
 
     let workLogs = JSON.parse(localStorage.getItem("workLogs")) || [];
     let copiedEntry = null;
@@ -105,7 +104,53 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // ✅ Restore Export to Excel
+    // ✅ Restore "Breyta töflu" (Edit Table) button
+    const editTableButton = document.createElement("button");
+    editTableButton.textContent = "Breyta töflu";
+    editTableButton.classList.add("btn", "btn-warning", "mt-2");
+    editTableButton.id = "editTable";
+
+    const saveTableButton = document.createElement("button");
+    saveTableButton.textContent = "Vista breytingar";
+    saveTableButton.classList.add("btn", "btn-success", "mt-2");
+    saveTableButton.id = "saveTable";
+    saveTableButton.style.display = "none";
+
+    document.querySelector(".container").appendChild(editTableButton);
+    document.querySelector(".container").appendChild(saveTableButton);
+
+    editTableButton.addEventListener("click", function () {
+        document.querySelectorAll(".edit-field").forEach(cell => {
+            cell.contentEditable = "true";
+        });
+        editTableButton.style.display = "none";
+        saveTableButton.style.display = "inline-block";
+    });
+
+    saveTableButton.addEventListener("click", function () {
+        saveLogs();
+        renderLogs();
+        editTableButton.style.display = "inline-block";
+        saveTableButton.style.display = "none";
+    });
+
+    // ✅ Add "Líma færslu" (Paste Entry) button
+    const pasteButton = document.createElement("button");
+    pasteButton.textContent = "Líma færslu";
+    pasteButton.classList.add("btn", "btn-secondary", "mt-2");
+    pasteButton.addEventListener("click", function () {
+        if (copiedEntry) {
+            workLogs.push({ ...copiedEntry });
+            saveLogs();
+            renderLogs();
+        } else {
+            alert("Engin færsla hefur verið afrituð!");
+        }
+    });
+
+    document.querySelector(".container").appendChild(pasteButton);
+
+    // ✅ Fix Export to Excel
     exportExcelButton.addEventListener("click", function () {
         if (workLogs.length === 0) {
             alert("Engar færslur til að flytja út!");
@@ -116,43 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
         let workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Vinnudagbók");
         XLSX.writeFile(workbook, "Vinnudagbók.xlsx");
-    });
-
-    // ✅ Restore Export to Word
-    exportWordButton.addEventListener("click", function () {
-        if (workLogs.length === 0) {
-            alert("Engar færslur til að flytja út!");
-            return;
-        }
-
-        let content = `
-            <h2>Vinnudagbók</h2>
-            <table border="1">
-                <tr>
-                    <th>Viðskiptavinur</th>
-                    <th>Dagsetning</th>
-                    <th>Upphafstími</th>
-                    <th>Lokatími</th>
-                    <th>Unnir tímar</th>
-                    <th>Lýsing</th>
-                </tr>
-                ${workLogs.map(log => `
-                <tr>
-                    <td>${log.client}</td>
-                    <td>${log.date}</td>
-                    <td>${log.startTime}</td>
-                    <td>${log.endTime}</td>
-                    <td>${log.totalHours}</td>
-                    <td>${log.description}</td>
-                </tr>`).join("")}
-            </table>
-        `;
-
-        let blob = new Blob(["\ufeff", content], { type: "application/msword" });
-        let link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "Vinnudagbók.doc";
-        link.click();
     });
 
     renderLogs();
